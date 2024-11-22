@@ -1,2 +1,2 @@
-pub mod merger;
+pub mod updater;
 pub mod utils;

@@ -18,6 +18,8 @@
       nativeBuildInputs = with pkgs; [
         pkg-config
       ];
+
+      shellHook = "rust-rover . || code .";
     };
   };
 }

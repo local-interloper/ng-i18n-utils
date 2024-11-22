@@ -1,6 +1,6 @@
 use clap::Parser;
 use std::process::ExitCode;
-use crate::core::merger::{Merger, MergerConfig};
+use crate::core::updater::{Updater, UpdaterConfig};
 use crate::core::utils::print_error;
 use crate::types::args::{Args, Subcommands};
 
@@ -12,21 +12,21 @@ fn main() -> ExitCode {
 
     match args.command {
         Subcommands::Update { path, languages, no_sort } => {
-            let merger = Merger::new(MergerConfig {
+            let updater = Updater::new(UpdaterConfig {
                 source_path: path,
                 target_languages: languages,
                 no_sort
             });
 
-            let mut merger = match merger {
-                Ok(merger) => merger,
+            let mut updater = match updater {
+                Ok(updater) => updater,
                 Err(err) => {
                     print_error(&err);
                     return ExitCode::FAILURE;
                 }
             };
 
-            if let Err(err) = merger.merge() {
+            if let Err(err) = updater.update() {
                 print_error(&err);
                 return ExitCode::FAILURE;
             }

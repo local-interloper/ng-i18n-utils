@@ -4,21 +4,21 @@ use std::io::{BufReader, BufWriter};
 use std::path::PathBuf;
 use crate::types::translation_file::TranslationFile;
 
-pub struct MergerConfig {
+pub struct UpdaterConfig {
     pub source_path: String,
     pub target_languages: Vec<String>,
     pub no_sort: bool,
 }
 
 #[derive(Default)]
-pub struct Merger {
+pub struct Updater {
     source_path: PathBuf,
     translation_file_paths: Vec<PathBuf>,
     no_sort: bool,
 }
 
-impl Merger {
-    pub fn new(config: MergerConfig) -> Result<Self, Box<dyn Error>> {
+impl Updater {
+    pub fn new(config: UpdaterConfig) -> Result<Self, Box<dyn Error>> {
         let mut translation_files = Vec::new();
 
         for language in &config.target_languages {
@@ -33,14 +33,14 @@ impl Merger {
             translation_files.push(PathBuf::from(path));
         }
 
-        Ok(Merger {
+        Ok(Updater {
             source_path: PathBuf::from(config.source_path),
             translation_file_paths: translation_files,
             no_sort: config.no_sort,
         })
     }
 
-    pub fn merge(&mut self) -> Result<(), Box<dyn Error>> {
+    pub fn update(&mut self) -> Result<(), Box<dyn Error>> {
         let source_file = OpenOptions::new()
             .read(true)
             .open(&self.source_path)?;

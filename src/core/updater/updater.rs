@@ -1,6 +1,6 @@
 use std::error::Error;
 use std::fs::OpenOptions;
-use std::io::{BufReader, BufWriter};
+use std::io::BufReader;
 use std::path::PathBuf;
 use crate::types::translation_file::TranslationFile;
 
